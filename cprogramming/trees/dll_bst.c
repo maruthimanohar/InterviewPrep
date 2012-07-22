@@ -50,10 +50,22 @@ int get_len(struct BSTnode *head)
 	return len;
 }
 
+struct BSTnode *dll_to_bst_util(struct BSTnode **head, int len)
+{
+    if (len <= 0)
+        return NULL;
+    struct BSTnode *l = dll_to_bst_util(head, len/2);
+    struct BSTnode *ret = *head;
+    *head = (*head)->right;
+    ret->left = l;
+    ret->right = dll_to_bst_util(head, (len - (len/2 + 1)));
+    return ret;
+}
+
 struct BSTnode *dll_to_bst(struct BSTnode *head)
 {
 	int len = get_len(head);
-	return dll_to_bst(head);
+	return dll_to_bst_util(&head, len);
 }
 
 int main()
@@ -66,9 +78,14 @@ int main()
 	print_inorder(root);
 	printf("\n");
 	struct BSTnode *head = bst_to_dll(root);
-	while (head != NULL) {
-		printf("%d,",head->data);
-		head = head->right;
+    struct BSTnode *tmp = head;
+	while (tmp != NULL) {
+		printf("%d,",tmp->data);
+		tmp = tmp->right;
 	}
 	printf("\n");
+
+    struct BSTnode *new_root = dll_to_bst(head);
+    print_inorder(new_root);
+    printf("\n");
 }

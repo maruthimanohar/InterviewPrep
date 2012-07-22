@@ -35,7 +35,7 @@ void *dequeue(struct Qnode **q)
 
 int is_empty(struct Qnode *q)
 {
-	if (*q == NULL)
+	if (q == NULL)
 		return 1;
-	return -1;
+	return 0;
 }

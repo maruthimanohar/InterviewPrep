@@ -14,7 +14,6 @@ struct Tnode *create_node(int data);
 void print_inorder(struct Tnode *root);
 void print_postorder(struct Tnode *root);
 void print_preorder(struct Tnode *root);
-void print_levelorder(struct Tnode *root);
 
 int size(struct Tnode *root);
 int height(struct Tnode *root);

@@ -2,6 +2,8 @@
 #define QUEUE_H
 
 #include <stdio.h>
+#include <stdlib.h>
+
 struct Qnode {
 	void *data;
 	struct Qnode *next;

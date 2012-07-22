@@ -1,9 +1,13 @@
-Great tree list recursion problem
-level order
+Great tree list recursion problem -- done
+level order -- Done
 spiral level order
+kth smallest element in a bst
+AVL trees
+Trie - insertion and deletion.
 
-Inorder traversal without recursion
 
-construct tree from inorder and preorder
-construct tree from inorder and postorder
+Inorder traversal without recursion  -- done
+
+construct tree from inorder and preorder  -- done
+construct tree from inorder and postorder -- done
 

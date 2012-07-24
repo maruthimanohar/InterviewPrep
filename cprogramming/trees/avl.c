@@ -50,6 +50,67 @@ struct Tnode *avl_insert(struct Tnode *root, int data)
     return root;
 }
 
+int min(struct Tnode *root)
+{
+	int min = -1;
+	while(root != NULL) {
+		min = root->data;
+		root = root->left;
+	}
+	return min;
+}
+
+struct Tnode *avl_delete(struct Tnode *root, int data)
+{
+	if (root == NULL)
+		return NULL;
+	if (data < root->data)
+		root->left = avl_delete(root->left, data);
+	else if (data > root->data)
+		root->right = avl_delete(root->right, data);
+	else {
+		// we arrived at the node to delete.
+		if (root->left == NULL || root->right == NULL) {
+			struct Tnode *tmp = root->left ? root->left : root->right;
+			if (tmp == NULL) {
+				tmp = root;
+				root = NULL;
+			} else {
+				*root = *tmp;
+			}
+			free(tmp);
+		} else {
+			int min_data = min(root->right);
+			root->data = min_data;
+			root->right = avl_delete(root->right, min_data);
+		}
+	}
+	if (root == NULL)
+		return NULL;
+	int l_height = height(root->left);
+	int r_height = height(root->right);
+	int diff = l_height - r_height;
+	if (diff >= 2) {
+		if (data <  root->left->data) {
+			// node was deleted in the left of left subtree.
+			root->left = acrotate(root->left);
+			return crotate(root);
+		} else {
+			// node was delete in the right of left subtree
+			return crotate(root);
+		}
+	} else if (diff <= -2) {
+		if (data >= root->right->data) {
+			// node was in the right of the right subtree.
+			root->right = crotate(root->right);
+			return acrotate(root);
+		} else {
+			return acrotate(root);
+		}
+	}
+	return root;
+}
+
 int main()
 {
     struct Tnode* head;
@@ -118,5 +179,20 @@ int main()
     printf("inserting 8\n");
     head = avl_insert(head, 8);
     print_preorder(head);
+    printf("\n");
+
+    // geeks for geeks input for delete.
+    struct Tnode *root = avl_insert(root, 9);
+    root = avl_insert(root, 5);
+    root = avl_insert(root, 10);
+    root = avl_insert(root, 0);
+    root = avl_insert(root, 6);
+    root = avl_insert(root, 11);
+    root = avl_insert(root, -1);
+    root = avl_insert(root, 1);
+    root = avl_insert(root, 2);
+    print_preorder(root);
+    printf("\n");
+    print_inorder(root);
     printf("\n");
 }

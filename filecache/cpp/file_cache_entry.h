@@ -6,7 +6,7 @@
 class FileCacheEntry
 {
 public: // c-tor & d-tor
-	FileCacheEntry(std::string& file_name, int file_size)
+	FileCacheEntry(const std::string& file_name, int file_size)
 		:_file_name(file_name), _file_size(file_size), _ref_count(0),
 		 _dirty(false), _delete(false)
 	{
@@ -19,10 +19,11 @@ public: // c-tor & d-tor
 	}
 
 public: // Member functions
-	void increment_ref_count() { _ref_count++; };
+	void increment_ref_count() { _ref_count++; }
 
-	void decrement_ref_count() { _ref_count--; };
+	void decrement_ref_count() { _ref_count--; }
 
+    int get_ref_count() { return _ref_count; }
 	void mark_dirty()
 	{
 		time(&_dirty_start_time);

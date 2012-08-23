@@ -31,12 +31,18 @@ private:
 		return NULL;
 	}
 	void *bg_thread();
+    void pin_file(const std::string& file_name);
+    FileCacheEntry *get_cache_entry(const std::string& file_name);
+    void unpin_file(const std::string& file_name);
+    int evict_an_entry();
 
 private: // Data Members
+    pthread_t bg_t;
 	pthread_mutex_t _lock;
 	pthread_cond_t _cond;
 	int _num_cache_entries;
 	std::map<std::string, FileCacheEntry *> _cache;
+    bool _stopped;
 };
 
 #endif

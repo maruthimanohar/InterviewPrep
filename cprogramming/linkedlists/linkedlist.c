@@ -1,5 +1,13 @@
 #include "linkedlist.h"
 
+struct node *create_node(int data)
+{
+	struct node *new_node = (struct node *)malloc(sizeof(struct node));
+	new_node->data = data;
+	new_node->next = NULL;
+	return new_node;
+}
+
 void push(struct node **head, int data)
 {
 	struct node *new_node = (struct node *)malloc(sizeof(struct node));

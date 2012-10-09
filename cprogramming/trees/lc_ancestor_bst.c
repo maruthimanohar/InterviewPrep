@@ -9,7 +9,7 @@ struct BSTnode * lca_bst(struct BSTnode *root, int data1, int data2)
 		return NULL;
 	if (root->data == data1 || root->data == data2)
 		return NULL;
-	while(root) {
+	while (root) {
 		if (root->right && (root->right->data == data1 || root->right->data == data2))
 			return root;
 		if (root->left && (root->left->data == data1 || root->right->data == data2))

@@ -11,6 +11,7 @@ struct node {
 	struct node *next;
 };
 
+struct node *create_node(int data);
 void push(struct node **head, int data);
 int pop(struct node **head);
 int get_nth(struct node *head, int index);

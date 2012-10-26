@@ -24,12 +24,11 @@ int getNext(struct Tnode** cur,int* set ){
 			return k;
 		}
 	}
-
 }
 
 void mergeTree(struct Tnode *T1, struct Tnode *T2){
 	struct Tnode *cur1=T1, *cur2=T2;
-	int sametree= (cur1 == cur2);
+	int sametree = (cur1 == cur2);
 	int set1=0,set2=0;
 	int trigger1=1, trigger2=(sametree?0:1);
 	int k1=0,k2=0;
@@ -65,7 +64,6 @@ void mergeTree(struct Tnode *T1, struct Tnode *T2){
 		}
 	}
 	printf("\n");
-
 }
 
 int main()

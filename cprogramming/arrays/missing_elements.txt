@@ -1,0 +1,26 @@
+Q : Given an array with positive integers. All the number occurs even number of times except one. Find the number occuring odd number of times:
+Ans : XOR all the elements. The result will be the number that is occuring odd number of times.
+
+Q: Given n-1 number in the range of 1 .. n. Find the missing number.
+Ans :   1. Find the sum of given number and subtract it from the sum of (1,n).
+	2. XOR all the give elements= X1. XOR all the number from 1 - n = X2. XOP X1 and X2 to get the answer.
+
+Q: 2 Repeating elements in n+2 given in the range of 1..n.
+Ans:  5 methods are possible.
+	1. Two loops.
+	2. count array, since we know the range
+	3. Sum and product
+	4. XOR the given elements and 1..n. give X xor Y.
+	   Get some set bit in the X xor Y.
+	   Divide the given numbers into two sets based on this set bit.  S1 and S2
+	   Divide the number 1..n into two sets based on the this set bit. T1 and T2
+	   S1 xor T1 gives one number and  S2 xor T2 gives the other.
+	5. Use the index for marking instead of count array in the second method
+	  if (arr[abs(arr[i]) > 0)
+		arr[abs(arr[i])] = -arr[abs(arr[i])]
+	  else:
+	  	abs(arr[i]) is repeated
+
+Q: Given an unsorted array of size n. Array elements are in range from 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in array. Find these two numbers
+Ans: same 5 methods as in the above array
+	1. One additional method is to sort the elements.

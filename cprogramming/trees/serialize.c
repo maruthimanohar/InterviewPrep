@@ -2,6 +2,23 @@
 #include "tree.h"
 #include "../stack/stack.h"
 
+
+struct Tnode *deserialize_rec(int *arr, int size, int *cur_pos)
+{
+	if (*cur_pos >= size)
+		return NULL;
+	if (arr[*cur_pos] == -1) {
+		(*cur_pos)++;
+		return NULL;
+	}
+	int val = arr[*cur_pos];
+	struct Tnode *root = create_node(val);
+	(*cur_pos)++;
+	root->left = deserialize_rec(arr, size, cur_pos);
+	root->right = deserialize_rec(arr, size, cur_pos);
+	return root;
+}
+
 struct Tnode *deserialize(int *arr, int size)
 {
 	if (size == 0)
@@ -51,6 +68,8 @@ struct Tnode *deserialize(int *arr, int size)
 			printf("\n");
 		}
 	}
+	print_inorder(root);
+	printf("\n");
 	return root;
 }
 
@@ -95,7 +114,9 @@ int main()
 	}
 	printf("\n");
 
-	struct Tnode *result = deserialize(serial, size);
+//	struct Tnode *result = deserialize(serial, size);
+	int cur_pos = 0;
+	struct Tnode *result = deserialize_rec(serial, size, &cur_pos);
 	print_preorder(result);
 	printf("\n");
 	print_inorder(result);

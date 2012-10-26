@@ -1,12 +1,6 @@
 // Write a function to connect all the adjacent nodes at the same level in a binary tree.
 // Structure of the given Binary Tree node is like following.
 
-// struct node {
-//	int data;
-//	struct node* left;
-//	struct node* right;
-//	struct node* nextRight;
-// }
 // Initially, all the nextRight pointers point to garbage values.
 // Your function should set these pointers to point next right for each node.
 // You can use only constant extra space.
@@ -23,13 +17,13 @@ struct node {
 
 struct node *get_next_right(struct node *root)
 {
-	struct node *temp = root->next_right;
-	while (temp != NULL) {
-		if (temp->left != NULL)
-			return temp->left;
-		if (temp->right != NULL)
-			return temp->right;
-		temp = temp->next_right;
+	struct node *next_node = root->next_right;
+	while (next_node != NULL) {
+		if (next_node->left != NULL)
+			return next_node->left;
+		if (next_node->right != NULL)
+			return next_node->right;
+		next_node = next_node->next_right;
 	}
 	return NULL;
 }
@@ -38,19 +32,22 @@ void connect_rec(struct node *root)
 {
 	if (root == NULL)
 		return;
-	printf("looking at : %d\n", root->data);
+	// first connect the children of the next right.
 	connect(root->next_right);
+	// get the next node to which last child of the current node should point to.
 	struct node *next_node = get_next_right(root);
+	// if there is a right child to the current node, make its right child's nextptr
+	// point to the next node and make the right child as next node.
 	if (root->right) {
-		printf("%d has right, setting its right \n", root->data);
 		root->right->next_right = next_node;
 		next_node = root->right;
 	}
+	// similarly for the left child.
 	if (root->left) {
-		printf("%d has left, setting its right \n", root->data);
 		root->left->next_right = next_node;
 		next_node = root->left;
 	}
+	// call recursively at the next level.
 	connect_rec(next_node);
 }
 
@@ -59,18 +56,18 @@ void connect_iter(struct node *root)
 	if (root == NULL)
 		return;
 	while (root != NULL) {
-		struct node *temp = root;
-		while (temp != NULL) {
-			struct node *next_node = get_next_right(temp);
-			if (temp->right != NULL) {
-				temp->right->next_right = next_node;
-				next_node = temp->right;
+		struct node *cur_node = root;
+		while (cur_node != NULL) {
+			struct node *next_node = get_next_right(cur_node);
+			if (cur_node->right != NULL) {
+				cur_node->right->next_right = next_node;
+				next_node = cur_node->right;
 			}
-			if (temp->left != NULL) {
-				temp->left->next_right = next_node;
-				next_node = temp->left;
+			if (cur_node->left != NULL) {
+				cur_node->left->next_right = next_node;
+				next_node = cur_node->left;
 			}
-			temp = temp->next_right;
+			cur_node = cur_node->next_right;
 		}
 		if (root->left)
 			root = root->left;
@@ -112,6 +109,5 @@ int main()
 	printf("nextRight of %d is %d \n", root->right->right->data,
 			root->right->right->next_right? root->right->right->next_right->data: -1);
 
-	getchar();
 	return 0;
 }

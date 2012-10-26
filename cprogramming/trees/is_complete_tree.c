@@ -5,7 +5,7 @@ int is_complete_binary_tree_util(struct Tnode *root, int cur_level, int *max_lev
 	if (root == NULL) {
 		if (cur_level == *max_level)
 			return 1;
-		if (cur_level == *max_level - 1) {
+		if (cur_level == max_level2) {
 			*max_level = max_level2;
 			return 1;
 		}
@@ -28,7 +28,8 @@ int main()
 	root->right = create_node(6);
 	root->left = create_node(3);
 	root->left->left = create_node(4);
-	root->right->left = create_node(4);
+	root->right->left = create_node(7);
+//	root->left->left->left = create_node(1);
 	printf("is complete : %d\n", is_complete_binary_tree(root));
 	return 0;
 }

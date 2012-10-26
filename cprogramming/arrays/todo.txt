@@ -1,0 +1,8 @@
+Turn image by 90 degrees
+maximum of all subarrays of size k. Easy using doubly linked list by storing front a back pointers.  http://www.geeksforgeeks.org/archives/11306
+maximum of j-i such that arr[j] > arr[i].
+median in a stream of numbers at each point.
+max len bitonic
+count the number of smaller elements on right side. Used self balanced BST.
+min num of steps to reach the end of array
+
